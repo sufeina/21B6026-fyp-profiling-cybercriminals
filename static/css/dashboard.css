@@ -1,0 +1,150 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    /* overflow: hidden;    */
+    /*So the page does not go down when contents are overflowing*/
+}
+
+/* Add bbackground color to the top nav */
+.topnav {
+    background-color: #0f122d;
+    overflow: hidden;
+}
+
+/* Style the links inisde nav bar */
+.topnav a {
+    float: left;
+    color: whitesmoke;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #171c45;
+}
+
+/* Add color to the active/current link */
+.topnav a.active {
+    background-color: #383D6E;
+    font-weight: bold;
+}
+
+/* Contains both side and main page / column */
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Side bar / left column */
+.side {
+    -ms-flex: 30%;
+    flex: 30%;
+    background-color: #f1f1f1;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Main page / right column */
+.main {
+    -ms-flex: 70%;
+    flex: 70%;
+    background-color: white;
+    padding: 20px;
+}
+
+.side button {
+    padding: 10px 8px 10px 16px;
+    width: 100%;
+    background-color: #d9d9d9;
+    text-decoration: none;
+    font-size: 16px;
+    color: black;
+    display: block; /* Makes the buttons equal */
+    margin: 15px 0; /* optional spacing between buttons */
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* smooth hover effect */
+}
+
+.side button:hover{
+    color: black;
+    background-color: #ccc;
+}
+
+
+.side .btn.btn-primary {
+    background-color: #3490DC;
+    color: white;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.side .btn.btn-primary:hover {
+    background-color: #296da4;
+}
+
+.side .prediction-btn {
+    background-color: #0f122d;
+    color: white;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.side .prediction-btn:hover {
+    background-color: #383D6E;
+    color: white;
+}
+
+.side .status-btn {
+    background-color: #04AA6D;
+    color: black;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.side .status-btn:hover {
+    background-color: #049560;
+    color: black;
+}
+
+
+/* Upload Section */
+.notification {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    margin-top: 10px;
+    border-left: 5px solid #28a745;
+}
+
+table { 
+    font-size: 0.85rem; 
+}
+
+.table-responsive { 
+    max-height: 300px; 
+    overflow-y: auto; 
+    max-width: 900px;
+    overflow-x: auto;
+}
+
+.form-select {
+    max-height: 200px;
+}
+

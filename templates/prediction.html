@@ -1,0 +1,187 @@
+<!-- prediction.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prediction</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="topnav">
+  <a class="active" href="/dashboard">Cyber<span style="color: #3490DC;">Detect</span></a>
+  <a href="/visualization">Data Visualization</a>
+  <a class="active" href="/go_to_predict">Prediction</a>
+  <a href="/summary">Summary</a>
+</div>
+
+<div class="row">
+  <div class="side">
+    <h2>Prediction Form</h2>
+    <form method="POST" action="/predict">
+      {% if selected_features %}
+        {% for col in selected_features %}
+          <label class="mt-2">{{ col }}</label>
+
+          {% if categorical_values and col in categorical_values %}
+            <select name="{{ col }}" class="form-select mb-2" required>
+              {% for val in categorical_values[col] %}
+                <option value="{{ val }}">{{ val }}</option>
+              {% endfor %}
+            </select>
+          {% else %}
+            <input name="{{ col }}" class="form-control mb-2" type="number" step="any" placeholder="Enter value" required>
+          {% endif %}
+
+        {% endfor %}
+      {% else %}
+        <div class="alert alert-warning">
+          No features available. Please complete Feature Selection first.
+        </div>
+      {% endif %}
+
+      <button type="submit" class="btn btn-success w-100 mt-3">Predict</button>
+    </form>
+
+    <form method="GET" action="/" class="mt-3">
+      <button type="submit" class="btn btn-secondary w-100">⬅️ Back to Dashboard</button>
+    </form>
+  </div>
+
+  <div class="main">
+    {% if prediction_result %}
+      <div class="alert alert-success mt-4">
+        <h4>Prediction Result: {{ prediction_result }}</h4>
+      </div>
+    {% endif %}
+
+    <form method="GET" action="/summary" class="mt-4">
+      <button type="submit" class="btn btn-primary w-100">📑 Go to Summary Page</button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
+
+
+
+<!-- first code: templates/prediction.html -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prediction</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+<div class="topnav">
+  <a class="active" href="/dashboard">Cyber<span style="color: #3490DC;">Detect</span></a>
+  <a href="/visualization">Data Visualization</a>
+  <a class="active" href="/go_to_predict">Prediction</a>
+  <a href="/summary">Summary</a>
+</div>
+<div class="row">
+  <div class="side">
+    <h2>Prediction Form</h2>
+    <form method="POST" action="/predict">
+      {% if selected_features %}
+        {% for col in selected_features %}
+          <label>{{ col }}</label><br>
+          {% if categorical_values and col in categorical_values %}
+            <select name="{{ col }}" class="form-select mb-2">
+              {% for val in categorical_values[col] %}
+                <option value="{{ val }}">{{ val }}</option>
+              {% endfor %}
+            </select><br>
+          {% else %}
+            <input name="{{ col }}" class="form-control mb-2" type="text" placeholder="Enter value" required><br>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <p>No selected features available. Please complete Feature Selection first.</p>
+      {% endif %}
+      <button type="submit" class="btn btn-success w-100 mt-2">Predict</button>
+    </form>
+
+    <form method="GET" action="/" class="mt-3">
+      <button type="submit" class="btn btn-secondary w-100"><i class="fa fa-arrow-left"></i> Back</button>
+    </form>
+  </div>
+
+  <div class="main">
+    {% if prediction_result %}
+      <div class="alert alert-success mt-4">
+        <h4>Prediction Result: {{ prediction_result }}</h4>
+      </div>
+    {% endif %}
+
+    <form method="GET" action="/summary" class="mt-3">
+        <button type="submit" class="btn btn-secondary w-100"><i class="fa fa-arrow-left"></i> Summary Page</button>
+    </form>
+
+  </div>
+</div>
+</body>
+</html> -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prediction</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="topnav">
+  <a class="active" href="/dashboard">Cyber<span style="color: #3490DC;">Detect</span></a>
+  <a href="/visualization">Data Visualization</a>
+  <a href="/go_to_predict">Prediction</a>
+  <a href="/summary">Summary</a>
+</div>
+
+<div class="row">
+  <div class="side">
+    <h2>Prediction Form</h2>
+
+    <form method="POST" action="/predict">
+      {% if selected_features %}
+        {% for col in selected_features %}
+          <label>{{ col }}</label><br>
+          <input name="{{ col }}" class="form-control mb-2" type="text" placeholder="Enter value" required><br>
+        {% endfor %}
+      {% else %}
+        <p>No selected features. Please perform Feature Selection first.</p>
+      {% endif %}
+      <button type="submit" class="btn btn-success w-100 mt-2">Predict</button>
+    </form>
+
+    <form method="GET" action="/" class="mt-3">
+      <button type="submit" class="btn btn-secondary w-100">← Back to Dashboard</button>
+    </form>
+
+  </div>
+
+  <div class="main">
+    {% if prediction_result %}
+      <div class="alert alert-success mt-4">
+        <h4>Prediction Result:</h4>
+        <h5>{{ prediction_result }}</h5>
+      </div>
+
+      <form method="GET" action="/summary" class="mt-3">
+        <button type="submit" class="btn btn-dark w-100">View Full Summary →</button>
+      </form>
+    {% endif %}
+  </div>
+</div>
+
+</body>
+</html> -->

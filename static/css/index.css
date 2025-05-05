@@ -1,0 +1,138 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #eceff1;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #0f122d;
+    font-size: 24px;
+}
+  
+li {
+    float: left;
+}
+  
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+  
+li a:hover {
+    background-color: #14183d;
+}
+
+.active {
+    font-weight: bold;
+}
+
+
+.container{
+    display: flex;
+    column-gap: 10px;
+    justify-content: center;
+}
+
+.box-1 {
+    width: 300px;
+    background-color: white;
+    margin: 30px;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.box-2 {
+    width: 900px;
+    background-color: white;
+    margin: 30px;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+
+    overflow-x: auto;
+    overflow-y: auto;
+    border: 1px solid #ccc; 
+
+
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 4px;
+}
+
+input[type="file"] {
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+button, .step {
+    display: block;    
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+button {
+    background-color: #3490dc;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2779bd;
+}
+
+.step {
+    background-color: #f3f3f3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.step.complete {
+    background-color: #e6ffed;
+    color: #1a7f37;
+    font-weight: 500;
+}
+
+.status-badge {
+    font-size: 12px;
+    background-color: #38a169;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 9999px;
+}
+
+.prediction-button {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.prediction-button:hover {
+    background-color: #333;
+}
+

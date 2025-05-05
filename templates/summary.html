@@ -1,0 +1,119 @@
+<!-- templates/summary.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Summary Report</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    img { max-width: 500px; height: auto; }
+    pre { background: #f8f9fa; padding: 10px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+<div class="topnav">
+  <a class="active" href="/dashboard">Cyber<span style="color: #3490DC;">Detect</span></a>
+  <a href="/visualization">Data Visualization</a>
+  <a href="/go_to_predict">Prediction</a>
+  <a class="active" href="/summary">Summary</a>
+</div>
+
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Summary Report</h2>
+
+  <div class="row">
+    <h4 class="mb-3">📄 Summary Overview</h4>
+    <table class="table table-bordered table-sm">
+      <thead class="table-light">
+        <tr>
+          <th style="width: 20%">Category</th>
+          <th style="width: 25%">Label</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="1">Target</td>
+          <td>Selected Target Feature</td>
+          <td>{{ session.get('target_column') }}</td>
+        </tr>
+        <tr>
+          <td rowspan="2">Preprocessing</td>
+          <td>Dropped Columns</td>
+          <td>
+            {% set dropped = session.get('dropped_columns') %}
+            {% if dropped %}
+              <ul style="margin:0; padding-left:20px;">
+                {% for col in dropped %}
+                  <li>{{ col }}</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              None
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>Missing Values Filled</td>
+          <td>{{ session.get('missing_filled', 0) }}</td>
+        </tr>
+        <tr>
+          <td rowspan="1">Features</td>
+          <td>Top 10 Selected Features</td>
+          <td>
+            {% set features = session.get('selected_features') %}
+            {% if features %}
+              <ul style="margin:0; padding-left:20px;">
+                {% for feat in features %}
+                  <li>{{ feat }}</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              None
+            {% endif %}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="col-md-6">
+      <h5>Feature Importance Graph</h5>
+      <img src="{{ url_for('static', filename='feature_importance.png') }}" class="img-fluid mb-3" alt="Feature Importances">
+
+      <h5>Model Performance</h5>
+      <p><strong>Accuracy:</strong> {{ session.get('accuracy') }}%</p>
+      <img src="{{ url_for('static', filename='confusion_matrix.png') }}" class="img-fluid mt-2" alt="Confusion Matrix">
+
+      <h5 class="mt-4">Classification Report</h5>
+      <pre>{{ session.get('classification_report_text') }}</pre>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h5>User Input & Prediction</h5>
+      {% if session.get('user_input') %}
+        <table class="table table-sm table-bordered">
+          <thead class="table-light">
+            <tr><th>Feature</th><th>Value</th></tr>
+          </thead>
+          <tbody>
+            {% for key, value in session.get('user_input').items() %}
+            <tr><td>{{ key }}</td><td>{{ value }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+      <p><strong>Predicted Attack Attribute:</strong> {{ session.get('prediction_result') }}</p>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="/download_summary_pdf" class="btn btn-primary">📥 Download Full Summary Report (PDF)</a>
+  </div>
+</div>
+
+</body>
+</html>
